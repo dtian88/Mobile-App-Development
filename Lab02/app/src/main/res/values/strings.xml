@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Lab 02</string>
+    <string name="text_box_label">Lab 02</string>
+    <string name="name_hint">What is your name?</string>
+    <string name="color_hint">What is your favorite color?</string>
+    <string name="submit_button">Submit</string>
+    <string name="color_button">Change color</string>
+    <string name="One">One</string>
+    <string name="Two">Two</string>
+    <string name="Three">Three</string>
+    <string-array name="array">
+        <item>@string/One</item>
+        <item>@string/Two</item>
+        <item>@string/Three</item>
+    </string-array>
+</resources>
