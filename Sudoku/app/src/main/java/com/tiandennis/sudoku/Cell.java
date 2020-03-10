@@ -40,13 +40,14 @@ class Cell extends RectF {
 
     private String value, sol;
     private boolean fixed, conflict;
-    private float left, top;
+    private float left, top, size;
     private int group;
 
-    Cell(float left, float top, float right, float bottom, String value, boolean fixed, String sol, boolean conflict, int group) {
+    Cell(float left, float top, float right, float bottom, float size, String value, boolean fixed, String sol, boolean conflict, int group) {
         super(left, top, right, bottom);
         this.left = left;
         this.top = top;
+        this.size = size;
         this.value = value;
         this.fixed = fixed;
         this.sol = sol;
@@ -73,17 +74,12 @@ class Cell extends RectF {
 //            p.setColor(Color.RED);
         p.setStrokeWidth(20);
         p.setTextSize(80);
-        c.drawText(value, left + 27, bottom - 18, p);
+        c.drawText(value, left + size * 27 / 100f, bottom - size * 9 / 50f, p);
 
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(5);
         p.setColor(Color.BLACK);
         c.drawRect(this, p);
-        p.setStrokeWidth(10);
-        c.drawLine(390, 200, 390, 1100, p);
-        c.drawLine(690, 200, 690, 1100, p);
-        c.drawLine(90, 500, 990, 500, p);
-        c.drawLine(90, 800, 990, 800, p);
     }
 
     boolean equals(Cell c) {

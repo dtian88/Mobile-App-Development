@@ -2,12 +2,16 @@ package com.tiandennis.sudoku;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
 class DrawView extends View {
     Cell[] Cells = new Cell[81];
     float width;
+    float cell_size;
+    Paint p = new Paint();
     String[] boards_hard = {"................12..3.45......6.1.7...4...6....58.........3.4...1.2......7.......",
             "................12..3.45......6.1.7...4...6....58.........3.5...1.2......7.......",
             "........1.......23....45......2.1.....4........67..5.......68...1.......32......9",
@@ -302,7 +306,7 @@ class DrawView extends View {
 
     public DrawView(Context context) {
         super(context);
-        reset();
+
 //        String value;
 //        for (int i = 0; i < 9; i++)
 //            for (int j = 0; j < 9; j++) {
@@ -315,8 +319,10 @@ class DrawView extends View {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        width = (getWidth() - 900)/2f;
+        cell_size = getWidth() * 5 / 54f;
+        width = (getWidth() - cell_size * 9)/2f;
         super.onLayout(changed, left, top, right, bottom);
+        reset();
 //        c1.left = a / 2f - 50;
 //        c1.top = a / 2f - 50;
 //        c1.right = a / 2f + 50;
@@ -328,6 +334,11 @@ class DrawView extends View {
         super.onDraw(canvas);
         for (Cell c : Cells)
             c.draw(canvas, won);
+        p.setStrokeWidth(10);
+        canvas.drawLine(width + 3 * cell_size, 2 * cell_size, width + 3 * cell_size, 11 * cell_size, p);
+        canvas.drawLine(width + 6 * cell_size, 2 * cell_size, width + 6 * cell_size, 11 * cell_size, p);
+        canvas.drawLine(width, 5 * cell_size, width + 9 * cell_size, 5 * cell_size, p);
+        canvas.drawLine(width, 8 * cell_size, width + 9 * cell_size, 8 * cell_size, p);
     }
 
     void reset() {
@@ -341,7 +352,7 @@ class DrawView extends View {
                 value = board.substring(i * 9 + j, i * 9 + j + 1);
                 if (value.equals("."))
                     value = "";
-                Cells[i * 9 + j] = new Cell(j * 100 + 90, i * 100 + 200, (j + 1) * 100 + 90, (i + 1) * 100 + 200, value, !value.equals(""), sol.substring(i * 9 + j, i * 9 + j + 1), false, (i / 3 * 3) + (j / 3));
+                Cells[i * 9 + j] = new Cell(j * cell_size + width, i * cell_size + cell_size * 2, (j + 1) * cell_size + width, (i + 1) * cell_size + cell_size * 2, cell_size, value, !value.equals(""), sol.substring(i * 9 + j, i * 9 + j + 1), false, (i / 3 * 3) + (j / 3));
             }
         invalidate();
     }
